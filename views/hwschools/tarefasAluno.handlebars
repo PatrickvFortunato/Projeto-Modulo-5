@@ -1,0 +1,13 @@
+<div class="dashboard">
+    <h3>Suas Tarefas:</h3>
+    <ul>
+        {{#each tarefas}}
+            <li>
+                <span class="label">{{this.titulo}}</span>
+            </li>
+        {{/each}}
+    </ul>
+    {{#if emptyTarefas}}
+        <p>Seus profesores ainda não adicionaram tarefas, mas não deixe de estudar!</p>
+    {{/if}}
+</div>

@@ -1,0 +1,16 @@
+<div class="tought-form-container">
+  <a href="/hwschools/tarefas">Voltar</a>
+  <h1>Editando uma Tarefa:</h1>
+  <form action="/hwschools/edit" method="POST">
+    <input type="hidden" name="id" value={{tarefa.id}}>
+    <div class="form-control">
+        <label for="titulo">Título:</label>
+        <input type="text" name="titulo" placeholder="Digite o título" value="{{tarefa.titulo}}">
+        <label for="disciplina">Título:</label>
+        <input type="text" name="fisciplina" placeholder="Digite a disciplina" value="{{tarefa.disciplina}}">
+        <label for="descricao">Descrição:</label>
+        <input type="text" name="descricao" placeholder="Digite a descricao" value="{{tarefa.descricao}}">
+    </div>
+    <input type="submit" value="Editar Tarefa">
+  </form>
+</div>

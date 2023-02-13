@@ -1,0 +1,72 @@
+login/cadastro professor
+
+cadastro requisição POST para inserir na tabela Professores
+    Nome:
+    Sobrenome:
+    Celular:
+    Disciplina:
+    Serie:
+    E-mail:
+    Senha:
+
+    Redirect para pagina de Login
+
+login requisição GET comparando com a tabela Professores
+    E-mail:
+    Senha:
+
+    Redirect para pagina do professor
+
+Pagina do professor
+    > Vai criar tarefas/exercícios para os estudantes
+        Tarefas requisição POST para inserir na tabela Taferas (1 professor pode ter várias tarefas, relacionamento 1:n)
+            idProfessor:
+            Titulo:
+            Descricao:
+
+        Quadro de tarefas que vai ser a requisição GET para exibição das tarefas, com botões para editar e apagar
+
+Login/cadastro aluno
+
+cadastro requisição POST para inserir na tabela Alunos
+    Nome:
+    Sobrenome:
+    Celular:
+    Serie:
+    E-mail:
+    Senha:
+
+    Redirect para pagina de Login
+
+login requisição GET comparando com a tabela Alunos
+    E-mail:
+    Senha:
+
+    Redirect para pagina do Aluno
+
+Pagina do Aluno
+    > Vai ser possivel visualizar com a requisição GET as tarefas passadas pelos Professores
+
+
+relacionamentos:
+    1 professor pode ter varios alunos, assim como um aluno pode ter vários Professores (N:N) Professores x Alunos
+
+    1 Aluno pode ter uma turma, mas 1 turma pode ter vários alunos (1:N) Turmas x Alunos
+    1 Professor só pode ter 1 turma, mas 1 turma pode ter vários professores (1:N) Turmas x Professores
+
+Observações:
+    Os formularios para criação de alunos e professores deverão conter um input com select para limitar o número de série
+
+Paginas
+    Home (/)
+        com uma introdução dos objetivos da aplicação, com o menu contendo os botoes de Professor e Aluno
+    
+    Login Professor (/Login/Professor)
+    Login Aluno (/Login/Aluno)
+    Cadastro Professor (/cadastro/Professor)
+    Cadastro Aluno (/cadastro/Aluno)
+
+    Portal Aluno (/alunos/:id)
+    Portal Professor (/professores/:id)
+    Portal Professor (/professores/addTarefas/:id)
+    Portal Professor (/professores/editTarefas/:id)

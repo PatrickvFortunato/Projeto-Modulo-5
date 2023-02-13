@@ -1,0 +1,52 @@
+<div class="auth-container">
+
+    <h2>Registrar</h2>
+
+    <form action="/cadastro/professor" method="POST">
+
+        <div class="form-control">
+            <label for="text">Nome:</label>
+            <input type="text" name="nome" placeholder="Digite o seu nome" required>
+        </div>
+
+        <div class="form-control">
+            <label for="text">Sobrenome:</label>
+            <input type="text" name="sobrenome" placeholder="Digite o seu sobrenome" required>
+        </div>
+
+        <div class="form-control">
+            <label for="number">Celular:</label>
+            <input type="number" name="celular" placeholder="Digite o seu celular" required>
+        </div>
+
+        <div class="form-control">
+            <label for="text">Serie:</label>
+            <input type="text" name="serie" placeholder="Digite a sua série" required>
+        </div>
+
+        <div class="form-control">
+            <label for="text">Disciplina:</label>
+            <input type="text" name="disciplina" placeholder="Digite a sua disciplina" required>
+        </div>
+
+        <div class="form-control">
+            <label for="email">E-mail:</label>
+            <input type="email" name="email" placeholder="Digite o seu email" required>
+        </div>
+
+        <div class="form-control">
+            <label for="password">Senha:</label>
+            <input type="password" name="senha" placeholder="Digite a sua senha" required>
+        </div>
+
+        <div class="form-control">
+            <label for="password">Confirmação de senha:</label>
+            <input type="password" name="confirmpassword" placeholder="Confirme a sua senha" required>
+        </div>
+
+        <input type="submit" value="Cadastrar">
+        <p>Já tem conta? <a href="/login/professor">Clique aqui</a></p>
+
+    </form>
+    
+</div>

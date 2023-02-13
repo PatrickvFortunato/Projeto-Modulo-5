@@ -1,0 +1,24 @@
+<div class="dashboard">
+    <div class="title-container">
+        <h2>Tarefas</h2>
+        <a href="/hwschools/add" class="btn">Criar nova Tarefa</a>
+    </div>
+    <h3>Suas Tarefas: Usuário {{userId}}</h3>
+    <ul>
+        {{#each tarefas}}
+            <li>
+                <span class="label">{{this.titulo}}</span>
+                <span class="actions">
+                    <a href="/hwschools/edit/{{this.id}}" class="btn">Editar</a>
+                    <form action="/hwschool/remove" method="POST">
+                        <input type="hidden" name="id" value="{{this.id}}">
+                        <input type="submit" value="Excluir" class="btn">
+                    </form>
+                </span>
+            </li>
+        {{/each}}
+    </ul>
+    {{#if emptyTarefas}}
+        <p>Ainda não há nenhuma tarefa postada, crie uma nova tarefa <a href="/hwschools/add">clicando aqui</a></p>
+    {{/if}}
+</div>
