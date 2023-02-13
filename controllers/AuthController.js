@@ -88,6 +88,12 @@ module.exports = class AuthController {
     static async registerAlunoPost(req, res) {
         const { nome, sobrenome, celular, serie, email, senha, confirmpassword } = req.body
 
+        const verificarProf = await Professores.findAll({
+            where: {
+                serie: serie
+            }
+        })
+
         //validação de senhas
         if (senha != confirmpassword) {
             req.flash('message', 'As Senhas não conferem, tente novamente!')
@@ -116,7 +122,8 @@ module.exports = class AuthController {
             celular,
             serie,
             email,
-            senha: hashedPassword
+            senha: hashedPassword,
+            ProfessoreId: verificarProf.id
         }
 
         try {

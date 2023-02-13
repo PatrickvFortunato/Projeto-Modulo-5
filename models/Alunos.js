@@ -41,7 +41,6 @@ Alunos.belongsToMany(Professores, {
     through: {
         model: ProfessorAlunos
     },
-    foreignKey: 'idAluno',
     constrait: true
 })
 
@@ -49,14 +48,13 @@ Professores.belongsToMany(Alunos, {
     through: {
         model: ProfessorAlunos
     },
-    foreignKey: 'idProfessor',
     constrait: true
 })
 
 
-Alunos.hasMany(ProfessorAlunos, { foreignKey: 'idAluno' });
-ProfessorAlunos.belongsTo(Alunos, { foreignKey: 'idAluno' });
-Professores.hasMany(ProfessorAlunos, { foreignKey: 'idProfessor' });
-ProfessorAlunos.belongsTo(Professores, { foreignKey: 'idProfessor' });
+Alunos.hasMany(ProfessorAlunos);
+ProfessorAlunos.belongsTo(Alunos);
+Professores.hasMany(ProfessorAlunos);
+ProfessorAlunos.belongsTo(Professores);
 
 module.exports = Alunos
