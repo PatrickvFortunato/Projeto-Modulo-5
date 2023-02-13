@@ -23,13 +23,17 @@ const Tarefas = db.define('Tarefas', {
     },
 })
 
-Tarefas.belongsTo(Professores, {
+Tarefas.belongsTo(Professores);
+Professores.hasMany(Tarefas);
+
+
+/*Tarefas.belongsTo(Professores, {
     constraints:true,
     foreignKey: 'idProfessor'
 });
 Professores.hasMany(Tarefas, {
     foreignKey: 'idProfessor'
-});
+});*/
 
 /*Alunos.belongsToMany(Tarefas, {
     through: {

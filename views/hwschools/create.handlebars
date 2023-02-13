@@ -3,13 +3,15 @@
     <h1>Criando uma Tarefa:</h1>
     <form action="/hwschools/add" method="POST">
         <div class="form-control">
-            <input type="hidden" name="idProfessor" value="{{req.session.id}}">
+            <!--<input type="hidden" name="idProfessor" value=req.session.userid>-->
             <label for="titulo">Título:</label>
             <input type="text" name="titulo" placeholder="Digite o título">
             <label for="disciplina">Disciplina:</label>
             <input type="text" name="disciplina" placeholder="Digite a disciplina">
             <label for="descricao">Descrição:</label>
             <input type="text" name="descricao" placeholder="Digite a descrição">
+            <!--<label for="idProfessor">idProfessor:</label>
+            <input type="text" name="idProfessor" value="req.session.userid">-->
         </div>
         <input type="submit" value="Criar Tarefa">
     </form>

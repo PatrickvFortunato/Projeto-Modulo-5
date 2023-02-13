@@ -1,4 +1,5 @@
 const session = require('express-session')
+const FileStore = require('session-file-store')(session)
 const Professores = require('../models/Professores')
 const Tarefas = require('../models/Tarefas')
 const Alunos = require('../models/Alunos')
@@ -54,7 +55,7 @@ module.exports = class Controller {
         })
 
         if (!professor) {
-            res.redirect('/login')
+            res.redirect('/login/Professor')
         }
 
         const tarefas = professor.Tarefas.map((result) => result.dataValues)
@@ -77,14 +78,25 @@ module.exports = class Controller {
 
     static async createTarefasSave(req, res) {
         const { titulo, disciplina, descricao } = req.body
-        const userId = req.session.userid;
+
+        const tarefa = {
+            titulo,
+            disciplina,
+            descricao,
+            ProfessoreId: req.session.userid            
+        }
+        
+        /*const novaTarefa = await Professores.findAll({
+            where: {
+                id: req.session.userid
+            }
+        })*/
+        
+        /*const userId = req.session.userid;
+        console.log(userId);*/
+        
         try {
-            await Tarefas.create({
-                titulo,
-                disciplina,
-                descricao,
-                IdProfessor: userId
-            })
+            await Tarefas.create(tarefa)
 
             req.flash('message', 'Tarefa criada com sucesso!')
 
@@ -131,7 +143,7 @@ module.exports = class Controller {
         const UserId = req.session.userid;
 
         try {
-            await Tarefas.destroy({ where: { id: id, IdProfessor: UserId } })
+            await Tarefas.destroy({ where: { id: id, ProfessoreId: UserId } })
 
             req.flash('message', 'Tarefa removida com sucesso!')
 
