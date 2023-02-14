@@ -77,11 +77,17 @@ module.exports = class Controller {
     }
 
     static async createTarefasSave(req, res) {
-        const { titulo, disciplina, descricao } = req.body
+        const { titulo, serie, descricao } = req.body
+        const disciplina = await Professores.findOne({
+            where: {
+                id: req.session.userid
+            }
+        })
 
         const tarefa = {
             titulo,
-            disciplina,
+            serie,
+            disciplina: disciplina.disciplina,
             descricao,
             ProfessoreId: req.session.userid            
         }
@@ -116,11 +122,11 @@ module.exports = class Controller {
     }
 
     static async updateTarefasSave(req, res) {
-        const { id, titulo, disciplina, descricao } = req.body
+        const { id, titulo, serie, descricao } = req.body
 
         const tarefa = {
             titulo,
-            disciplina,
+            serie,
             descricao
         }
 
@@ -155,7 +161,7 @@ module.exports = class Controller {
         }
     }
 
-    /*static async tarefasAluno(req, res) {
+    static async tarefasAluno(req, res) {
         const userId = req.session.userid;
 
         const aluno = await Alunos.findOne({
@@ -169,8 +175,8 @@ module.exports = class Controller {
         if (!aluno) {
             res.redirect('/login')
         }
-
-        const tarefas = professor.Tarefas.map((result) => result.dataValues)
+           
+        const tarefas = aluno.Tarefas.map((result) => result.dataValues)
         console.log(tarefas);
        
 
@@ -180,6 +186,6 @@ module.exports = class Controller {
             emptyTarefas = true
         }
 
-        res.render('hwschools/tarefas', { tarefas, emptyTarefas })
-    }*/
+        res.render('hwschools/tarefasAluno', { tarefas, emptyTarefas })
+    }
 }

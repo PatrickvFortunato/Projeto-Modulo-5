@@ -2,7 +2,6 @@ const { DataTypes } = require('sequelize')
 
 const db = require('../db/conn');
 
-
 const Professores = db.define('Professores', {
     nome: {
         type: DataTypes.STRING,
@@ -24,11 +23,6 @@ const Professores = db.define('Professores', {
         require: true,
         allowNull: false,
     },
-    serie: {
-        type: DataTypes.INTEGER,
-        require: true,
-        allowNull: false,
-    },
     email: {
         type: DataTypes.STRING,
         require: true,
@@ -40,7 +34,6 @@ const Professores = db.define('Professores', {
         allowNull: false,
     },
 })
-
 
 
 module.exports = Professores

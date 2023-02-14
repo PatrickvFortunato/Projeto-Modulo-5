@@ -2,6 +2,8 @@ const Alunos = require('../models/Alunos')
 const Professores = require('../models/Professores')
 
 const bcrypt = require('bcryptjs')
+const Tarefas = require('../models/Tarefas')
+const TarefasAlunos = require('../models/TarefasAlunos')
 
 module.exports = class AuthController {
 
@@ -34,6 +36,27 @@ module.exports = class AuthController {
             res.render('auth/loginAlunos')
 
             return
+        }
+
+        const buscarTarefas = await Tarefas.findAndCountAll({
+            where: {
+                serie: aluno.serie
+            }
+        })
+        let num = buscarTarefas.count 
+
+        for (let i = 1; i == num; i++) {
+            let addTarefas = await Tarefas.findOne({
+                where: {
+                    id: i,
+                    serie: aluno.serie
+                }
+            })
+
+            if (addTarefas.serie === aluno.serie) {
+                await aluno.setTarefas([addTarefas])
+                return
+            }
         }
 
         //initialize session
@@ -88,12 +111,6 @@ module.exports = class AuthController {
     static async registerAlunoPost(req, res) {
         const { nome, sobrenome, celular, serie, email, senha, confirmpassword } = req.body
 
-        const verificarProf = await Professores.findAll({
-            where: {
-                serie: serie
-            }
-        })
-
         //validação de senhas
         if (senha != confirmpassword) {
             req.flash('message', 'As Senhas não conferem, tente novamente!')
@@ -123,11 +140,39 @@ module.exports = class AuthController {
             serie,
             email,
             senha: hashedPassword,
-            ProfessoreId: verificarProf.id
         }
+
+        /*const buscarTarefas = await Tarefas.findOne({
+            where: {
+                serie: serie
+            }
+        })*/
+
+        const tamanho = await Tarefas.findAndCountAll()
+        let num = tamanho.count
 
         try {
             const createdUser = await Alunos.create(user)
+
+            if (num != 0) {
+                for (let i = 1; i <= num; i++) {
+                    const buscarAluno = await Alunos.findByPk(createdUser.id)
+                    
+                    let buscarTarefa = await Tarefas.findOne({
+                        where: {
+                            id: i
+                        }
+                    })
+                    if (buscarTarefa.serie === buscarAluno.serie) {
+                        let addTarefas = await TarefasAlunos.create({
+                            AlunoId: buscarAluno.id,
+                            TarefaId: buscarTarefa.id
+                        })
+                        console.log(addTarefas);
+                    }
+
+                }
+            }
 
             // initialize session
             req.session.userid = createdUser.id
@@ -144,7 +189,7 @@ module.exports = class AuthController {
     }
 
     static async registerProfessorPost(req, res) {
-        const { nome, sobrenome, celular, serie, disciplina, email, senha, confirmpassword } = req.body
+        const { nome, sobrenome, celular, disciplina, email, senha, confirmpassword } = req.body
 
         //validação de senhas
         if (senha != confirmpassword) {
@@ -172,7 +217,6 @@ module.exports = class AuthController {
             nome,
             sobrenome,
             celular,
-            serie,
             disciplina,
             email,
             senha: hashedPassword

@@ -1,8 +1,6 @@
 const { DataTypes } = require('sequelize')
 
 const db = require('../db/conn')
-const Professores = require('./Professores')
-const ProfessorAlunos = require('./ProfessorAlunos')
 
 const Alunos = db.define('Alunos', {
     nome: {
@@ -37,24 +35,6 @@ const Alunos = db.define('Alunos', {
     },
 })
 
-Alunos.belongsToMany(Professores, {
-    through: {
-        model: ProfessorAlunos
-    },
-    constrait: true
-})
 
-Professores.belongsToMany(Alunos, {
-    through: {
-        model: ProfessorAlunos
-    },
-    constrait: true
-})
-
-
-Alunos.hasMany(ProfessorAlunos);
-ProfessorAlunos.belongsTo(Alunos);
-Professores.hasMany(ProfessorAlunos);
-ProfessorAlunos.belongsTo(Professores);
 
 module.exports = Alunos

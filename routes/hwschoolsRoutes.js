@@ -10,7 +10,7 @@ router.post('/add', checkAuth, Controller.createTarefasSave)
 router.get('/edit/:id', checkAuth, Controller.updateTarefas)
 router.post('/edit', checkAuth, Controller.updateTarefasSave)
 router.get('/tarefas', checkAuth, Controller.tarefas)
-//router.get('/tarefasAluno', checkAuth, Controller.tarefasAluno)
+router.get('/tarefasAluno', checkAuth, Controller.tarefasAluno)
 router.post('/remove', checkAuth, Controller.removeTarefas)
 router.get('/', Controller.showTarefas)
 

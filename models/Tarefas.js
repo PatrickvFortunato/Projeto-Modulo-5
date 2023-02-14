@@ -5,9 +5,15 @@ const Professores = require('./Professores');
 const Alunos = require('./Alunos');
 const TarefasAlunos = require('./TarefasAlunos');
 
+
 const Tarefas = db.define('Tarefas', {
     titulo: {
         type: DataTypes.STRING,
+        require: true,
+        allowNull: false,
+    },
+    serie: {
+        type: DataTypes.INTEGER,
         require: true,
         allowNull: false,
     },
@@ -26,35 +32,23 @@ const Tarefas = db.define('Tarefas', {
 Tarefas.belongsTo(Professores);
 Professores.hasMany(Tarefas);
 
-
-/*Tarefas.belongsTo(Professores, {
-    constraints:true,
-    foreignKey: 'idProfessor'
-});
-Professores.hasMany(Tarefas, {
-    foreignKey: 'idProfessor'
-});*/
-
-/*Alunos.belongsToMany(Tarefas, {
-    through: {
-        model: TarefasAlunos
-    },
-    foreignKey: 'idAluno',
-    constrait: true
-})
-
 Tarefas.belongsToMany(Alunos, {
     through: {
         model: TarefasAlunos
-    },
-    foreignKey: 'idTarefa',
-    constrait: true
+    }
+})
+
+Alunos.belongsToMany(Tarefas, {
+    through: {
+        model: TarefasAlunos
+    }
 })
 
 
-Alunos.hasMany(TarefasAlunos, { foreignKey: 'idAluno' });
-TarefasAlunos.belongsTo(Alunos, { foreignKey: 'idAluno' });
-Tarefas.hasMany(TarefasAlunos, { foreignKey: 'idTarefa' });
-TarefasAlunos.belongsTo(Tarefas, { foreignKey: 'idTarefa' });*/
+Alunos.hasMany(TarefasAlunos);
+TarefasAlunos.belongsTo(Alunos);
+Tarefas.hasMany(TarefasAlunos);
+TarefasAlunos.belongsTo(Tarefas);
+
 
 module.exports = Tarefas
